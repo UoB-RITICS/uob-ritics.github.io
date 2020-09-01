@@ -1,0 +1,152 @@
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+main>.container {
+    padding: 60px 15px 0;
+}
+
+.footer {
+    background-color: #262626;
+    color: #f2f2f2;
+}
+
+.uob-logo{
+    background-image: url("/assets/logo/uob-logo.svg");
+    height:80px;
+    width:180px;
+    background-repeat: no-repeat;
+    position: absolute;
+    margin:0;
+    top:0;
+    left:0;
+    padding-right:250px;
+}
+
+.brand{
+    padding-left:180px;
+}
+
+.container.uob-card{
+    padding: 0px 5px 5px 15px!important;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.navbar {
+    background-color: #ffffff;
+    font-weight: 700;
+    line-height: 50px;
+    height:80px;
+}
+
+.navbar li {
+    padding: .5rem 1rem;
+    background-color: #ffffff;
+}
+
+.nav-link {
+    box-shadow: 0 0 0 3px transparent;
+    transition-duration: .2s;
+    transition-property: box-shadow, background-color, color;
+    transition-timing-function: ease-out;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 2px;
+    color: #404040;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-family: inherit;
+    font-weight: inherit;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    min-height: 48px;
+    padding: .5rem 1rem;
+    position: relative;
+    text-decoration: none;
+    width: 100%;
+}
+
+.luna-active {
+    color: #605270;
+}
+
+.luna-active::after{
+    background-color: #605270;
+    bottom: 0;
+    content: '';
+    height: 4px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    margin-bottom:-6px;
+}
+
+.navbar::after {
+    background-color: #d8d8d8;
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.footer>.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+    font-size: 80%;
+}
+
+.container>span {
+    display: inline-block;
+}
+
+.uob-address {
+    margin-top: 1.5rem;
+}
+
+body {
+    background: #f2f2f2;
+    color: #404040;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.125rem;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 3.875rem;
+    line-height: 1.22581;
+}
+
+h2{ 
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    line-height: 1.25;
+    font-weight: 500;
+}
+
+.btn-uob{
+	color:#ffffff;
+	background-color:#605270;
+	border-color: #605270;
+	margin-right:10px;
+	
+}
+
+.btn-uob:hover{
+	background-color:#393143;
+	border-color: #393143;
+	color:#ffffff;
+}
+
+.btn{
+	padding:.375rem .75rem;
+}
