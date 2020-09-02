@@ -45,7 +45,7 @@
   <main role="main" class="flex-shrink-0">
     <div class="jumbotron mt-auto">
       <div class="container">
-        <h1 class="display-3">Catch Me If You Can Dataset</h1>
+        <h1 class="display-4">Catch Me If You Can Dataset</h1>
         <p>Dataset Supporting the CPSIOT 2020 Workshop Paper &quot;Catch Me If You Can: An In-Depth Study of CVE
           Discovery Time and Inconsistencies for Managing Risk in Critical Infrastructures&quot; by Richard J. Thomas,
           Joe Gardiner, Tom Chothia, Awais Rashid, Manolis Samanis and Joshua Perrett, a joint collaboration between the
@@ -57,7 +57,7 @@
     </div>
     <span class="anchor" id="referencing"></span>
     <div id="referencing" class="container uob-card">
-      <h2 class="mt-5"><i class="fas fa-chalkboard-teacher"></i> Referencing this Dataset </h2>
+      <h2 class="pt-3 mt-3"><i class="fas fa-chalkboard-teacher"></i> Referencing this Dataset </h2>
       <p>We encourage the use of our Dataset by the research community. If you do use it, we ask that you cite the
         Dataset and credit the University of Birmingham and the Bristol Cyber Security Group.</p>
       <p>
@@ -78,21 +78,17 @@
       </p>
       <div class="collapse" id="cite">
         <div class="card card-body">
-          <code>R.J. Thomas and T. Chothia. (2020) <em>"Learning from Vulnerabilities - Categorising, Understanding and
-              Detecting Weaknesses in Industrial Control Systems"</em> in In: Katsikas S. et al. (eds) Computer
-            Security. CyberICPS 2020. Lecture Notes in Computer Science. Springer, Cham.</code>
+          <code>R.J. Thomas, J. Gardiner, T. Chothia, A. Rashid, M. Samanis and J. Perrett. (2020) <em>"Catch Me If You Can: An In-Depth Study of CVE Discovery Time and Inconsistencies for Managing Risks in Critical Infrastructure"</em> in: Proceedings of the ACM Workshop on Cyber-Physical Systems Security \& IOT Security and Privacy.</code>
         </div>
       </div>
       <div class="collapse" id="bibtex">
         <div class="card card-body">
-          <code>@InProceedings{uob-esorics2020,
-            author="Richard J. Thomas and Tom Chothia",
-            title="Learning from Vulnerabilities - Categorising, Understanding and Detecting Weaknesses in Industrial
-            Control Systems",
-            booktitle="Computer Security",
-            year="2020",
-            publisher="Springer International Publishing",
-            address="Cham"}</code>
+          <code>@InProceedings{cpsiotsec2020,
+            author="Thomas, Richard J. and Gardiner, Joe and Chothia, Tom and Rashid, Awais and Samanis, Manolis and Perrett, Joshua",
+            title="Catch Me If You Can: An In-Depth Study of CVE Discovery Time and Inconsistencies for Managing Risks in Critical Infrastructure",
+            booktitle={Proceedings of the ACM Workshop on Cyber-Physical Systems Security \& IOT Security and Privacy},
+            year="2020"
+            }</code>
         </div>
       </div>
     </div>
@@ -109,6 +105,8 @@
       <p>This Dataset contains all ICS advisories between 2011 and March 2020. Some key statistics are given below:</p>
       <ul>
         <li>2,232 ICS CVEs</li>
+        <li>X ICS Medical Advisories (not analysed)</li>
+        <li>X CPEs</li>
       </ul>
       <h4>Data Schema</h4>
       <p>The Dataset has been broken down into a set of tables for simple referencing and to provide 'single sources of
@@ -154,65 +152,6 @@
           </tr>
         </tbody>
       </table>
-      <h4>Original Dataset</h4>
-      <p class="lead">The Dataset containing ICS advisories from 2011 to August 2019.</p>
-      <table class="table table-striped">
-        <caption>Full Dataset Files</caption>
-        <thead>
-          <tr>
-            <th class="col-xs-8">Schema File</th>
-            <th class="col-xs-2">Last</th>
-            <th class="col-xs-2">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>The original table</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>This is a different, but long title</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>Yet another very long table</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-        </tbody>
-      </table>
-      <h4>Validation Dataset</h4>
-      <p class="lead">The Dataset of ICS Advisories and data through to between September 2019 and March 2020 which were
-        used to validate the categorisation for our paper.</p>
-      <table class="table table-striped">
-        <caption>Full Dataset Files</caption>
-        <thead>
-          <tr>
-            <th class="col-xs-8">Schema File</th>
-            <th class="col-xs-2">Last</th>
-            <th class="col-xs-2">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>This is a long title</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>This is a different, but long title</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>Yet another very long table</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-        </tbody>
-      </table>
       <div class="container uob-card">
         <h2 class="mt-5"><i class="fas fa-question-circle"></i> Have Questions? </h2>
         <p>If you have any questions, please feel free to get in touch with us. Our contact addresses are in the paper.
@@ -231,9 +170,6 @@
   </footer>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
-  <script>
-    window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')
   </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
