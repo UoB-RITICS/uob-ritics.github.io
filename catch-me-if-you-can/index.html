@@ -104,51 +104,61 @@
         form our Dataset is given in <a href="paper">our paper</a>.</p>
       <p>This Dataset contains all ICS advisories between 2011 and March 2020. Some key statistics are given below:</p>
       <ul>
-        <li>2,232 ICS CVEs</li>
-        <li>X ICS Medical Advisories (not analysed)</li>
-        <li>X CPEs</li>
+        <li><strong>1,143</strong> CISA ICS Advisories (1,089 ICS-specific, 54 Medical)</li>
+        <li><strong>2,327</strong> ICS CVEs</li>
+        <li><strong>14,577</strong> Unique CPEs</li>
+        <li><strong>44,030</strong> CPE Listings for all CVEs</li>
       </ul>
       <h4>Data Schema</h4>
-      <p>The Dataset has been broken down into a set of tables for simple referencing and to provide 'single sources of
-        truth'. The schema is given below, with a description of the fields contained in those tables. Each schema
-        matching SQL and CSV files.</p>
+      <p>The Dataset has been broken down for simple referencing and for intuitive use. The schema is given below, with a description of the fields contained in this Dataset. Each schema
+        has a matching SQL and CSV file for download.</p>
       <ul>
-        <li>Test
+        <li>cpe_listing
           <ul>
-            <li>Test</li>
+            <li><code>cve_id</code> - The CVE ID (extracted from ICS Advisory)</li>
+            <li><code>cpe_vector</code> - The CPE vector of the affected device, software or operating system (Extracted from the NVD CVE)</li>
+            <li><code>vendor</code> - The stated vendor (extracted from the 'vendor' part of the CPE</li>
+            <li><code>cwe_id</code> - The CWE ID (from the ICS Advisory)</li>
+            <li><code>icsa_id</code> - The ICS Advisory ID (from US-CERT)</li>
+            <li><code>cvss_version</code> - The CVSS Version (2 or 3) (from the NVD CVE)</li>
+            <li><code>cvss_base_score</code> - The CVSS Base Score (from the NVD CVE)</li>
+            <li><code>cvss_exploitability_score</code> - The CVSS Exploitability Score (not in CVSS v2) (from the NVD CVE)</li>
+            <li><code>cvss_impact_score</code> - The CVSS Impact Score (not in CVSS v2) (from the NVD CVE)</li>
+            <li><code>cvss_severity</code> - The CVSS Severity classification (LOW, MEDIUM, HIGH | LOW, MEDIUM, HIGH, CRITICAL) (from the NVD CVE)</li>
+            <li><code>cvss_vector</code> - The CVSS Vector (from the NVD CVE)</li>
+            <li><code>is_vulnerable</code> - Bit flag to determine if the CPE is vulnerable (from NVD CVE)</li>
+            <li><code>u_sfp_cluster</code> - <abbr title="For more information about the mapping process, visit the 'Learning from Vulnerabilities' dataset page">Mapped</abbr> CWE to SFP cluster ID (from NVD CVE)</li>
+            <li><code>u_sys_created</code> - The Date and Time the CVE was published (from the NVD CVE)</li>
+            <li><code>u_sys_updated</code> - The Date and Time the CVE was last modified (from the NVD CVE)</li>
+            <li><code>cna_assigner</code> - The stated CNA assigner (from the NVD CVE)</li>
+            <li><code>mitre_cna_assigner</code> - The stated CNA assigner (from the MITRE CVE)</li>
           </ul>
         </li>
       </ul>
 
       <h3>Dataset Releases</h3>
-      <p>This Dataset is available as a set of SQL files for database servers and integration with other data analysis
+      <p>This Dataset is available as SQL and CSV files for database servers and integration with other data analysis
         tools and software.</p>
+      <p><strong>Please note:</strong> this Dataset contains only pre-processed data, and not the device sales, release and firmware update data that was used in our paper.</p>
       <h4>Full Dataset</h4>
-      <p class="lead">The full dataset of ICS Advisories and data through to March 2020.</p>
+      <p class="lead">The full dataset of ICS Advisories, CVE and CPE information and other data through to March 2020.</p>
       <table class="table table-striped">
         <caption>Full Dataset Files</caption>
         <thead>
           <tr>
-            <th class="col-xs-8">Schema File</th>
-            <th class="col-xs-2">Last</th>
-            <th class="col-xs-2">Handle</th>
+            <th class="col-9">Schema File</th>
+            <th class="col-1">SQL</th>
+            <th class="col-1">CSV</th>
+            <th class="col-1">JSON</th>
+
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th>This is a long title</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>This is a different, but long title</th>
-            <td>SQL</td>
-            <td>CSV</td>
-          </tr>
-          <tr>
-            <th>Yet another very long table</th>
-            <td>SQL</td>
-            <td>CSV</td>
+            <th>cpsiot2020-cpe_listing</th>
+            <td><a href="#">SQL</a></td>
+            <td><a href="#">CSV</a></td>
+            <td><a href="#">JSON</a></td>
           </tr>
         </tbody>
       </table>
