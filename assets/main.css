@@ -152,6 +152,15 @@ h4 {
     font-weight: 300;
 }
 
+a {
+    color: #605270;
+    text-decoration: underline;
+}
+
+caption{
+    color:#626B73;
+}
+
 .btn-uob {
     color: #ffffff;
     background-color: #605270;
