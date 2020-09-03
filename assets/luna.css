@@ -1,6 +1,7 @@
-/* Custom page CSS
+/* Custom CSS
 -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
+/* Luna CSS Implementation                         */
+/* University of Birmingham                        */
 
 html {
     min-height: 100%;
@@ -111,7 +112,7 @@ code {
 }
 
 .container>span {
-    display: inline-block;
+    display: block;
 }
 
 .uob-address {
@@ -158,8 +159,17 @@ a {
     text-decoration: underline;
 }
 
+p .btn-link{
+    color: #605270;
+    text-decoration: underline;
+}
+
 caption{
     color:#626B73;
+}
+
+.footer a{
+    color: #ffffff;
 }
 
 .btn-uob {
