@@ -23,7 +23,8 @@
 <body class="d-flex flex-column h-100">
   <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light"> <a class="navbar-brand uob-logo" aria-label="University of Birmingham" title="University of Birmingham" href="/"></a> <span
+    <nav class="navbar navbar-expand-lg navbar-light"> <a class="navbar-brand uob-logo"
+        aria-label="University of Birmingham" title="University of Birmingham" href="/"></a> <span
         class="brand d-none d-sm-block">RITICS Open Datasets</span>
       <button class="navbar-toggler ml-auto float-right" type="button" data-toggle="collapse"
         data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
@@ -97,7 +98,7 @@
       <h2>The Dataset</h2>
       <p class="lead">Everything you need to know about this Dataset.</p>
       <h3>Dataset Information:</h3>
-      <p>The 'Leaning from Vulnerabilities' Dataset was curated by scraping <a
+      <p>The 'Learning from Vulnerabilities' Dataset was curated by scraping <a
           href="https://us-cert.cisa.gov/ics/advisories">CISA ICS-CERT Advisories</a>, the <a
           href="https://nvd.nist.gov/vuln/data-feeds">NIST NVD CVE feeds</a>, <a
           href="https://github.com/CVEProject/cvelist">MITRE CVE exports</a> and the <a
@@ -105,27 +106,132 @@
         form our Dataset is given in <a href="paper">our paper</a>.</p>
       <p>This Dataset contains all ICS advisories between 2011 and March 2020. Some key statistics are given below:</p>
       <ul>
-        <li>2,232 ICS CVEs</li>
+        <li><strong>2,566</strong>> ICS CVEs</li>
+        <li><strong>1,240</strong> ICS Advisories scraped</li>
+        <li><strong>283</strong> distinct CWE references</li>
       </ul>
       <h4>Data Schema</h4>
       <p>The Dataset has been broken down into a set of tables for simple referencing and to provide 'single sources of
         truth'. The schema is given below, with a description of the fields contained in those tables. Each schema
-        matching SQL and CSV files.</p>
+        matching SQL and CSV files. Where text is given in '[]', this relates to the corresponding Dataset file.</p>
       <ul>
-        <li>Test
+        <li>[validation_|merged_]icsa_vendors - Directory of ICS vendors with vulnerabilities (from ICS-CERT vendor
+          lists) <ul>
+            <li><code>vendor_id</code> - Unique identifier for the vendor </li>
+            <li><code>name</code> - The vendor name </li>
+          </ul>
+        <li>icsa_cwe - CWE Dictionary mapping ID to name and contextual information (from MITRE CWE)<ul>
+            <li><code>cwe_id</code> - The CWE Identifier (e.g. CWE-200) </li>
+            <li><code>name</code> - The name of the CWE </li>
+            <li><code>weakness_abstraction</code> - The type of CWE (e.g. Class, Category) </li>
+            <li><code>status</code> - The state of the CWE (e.g. Incomplete, Draft) </li>
+            <li><code>description</code> - A brief description of the CWE </li>
+            <li><code>extended_description</code> - A fuller outline of the vulnerability, including its effects </li>
+            <li><code>background_details</code> - Technical details about the CWE (e.g. what should be expected and the
+              reason for a vulnerability existing from this CWE). </li>
+            <li><code>comments</code> - Birmingham-contributed comments </li>
+          </ul>
+        <li>cwe_groups - Defining groups of CWEs (e.g. CWE Top 25 and SFP Clusters)<ul>
+            <li><code>category_id</code> - The internal ID of the category </li>
+            <li><code>cwe_category_name</code> - Simple name for the category (e.g. CWE Top 25, or OWASP Theme) </li>
+            <li><code>comments</code> - Birmingham-contributed comments </li>
+          </ul>
+        <li>cwe_group_member - defines mappings of CWE to appropriate groups in <code>cwe_groups</code>
           <ul>
-            <li>Test</li>
+            <li><code>cwe_category</code> - The <code>category_id</code> that the CWE should be in </li>
+            <li><code>cwe_member</code> - The <code>cwe_id</code> to be mapped into this group </li>
+          </ul>
+        <li>[validation_|merged_]icsa_alert<ul>
+            <li><code>icsa_id</code> - The ICS Advisory number (from ICS Advisory) </li>
+            <li><code>icsa_url</code> - The URL to the ICS Advisory </li>
+            <li><code>icsa_release</code> - The date the ICS Advisory was released (from ICS Advisory) </li>
+            <li><code>icsa_update</code> - The date the ICS Advisory was updated (if set) (from ICS Advisory) </li>
+            <li><code>icsa_description</code> - Description from the ICS Advisory of the issues identified (from ICS
+              Advisory) </li>
+            <li><code>icsa_is_update</code> - Flag set if an ICS Advisory was updated since publication </li>
+            <li><code>icsa_vendor</code> - The vendor affected (from ICS Advisory) </li>
+            <li><code>icsa_oneliner</code> - A one-liner of the ICS Advisory (used in older ICS Advisories) </li>
+          </ul>
+        <li>[validation_|merged_]icsa_statistics_paper_dev - table containing all our analysed data (except product
+          type)<ul>
+            <li><code>icsa_id</code> - The ICS Advisory number (from ICS Advisory) </li>
+            <li><code>cwe_id</code> - The CWE number assigned to the vulnerability in the ICS Advisory </li>
+            <li><code>cve_id</code> - The stated CVE for the vulnerability </li>
+            <li><code>cvss_version</code> - The CVSS version (from the NVD CVE) - either 2 or 3 </li>
+            <li><code>cve_description</code> - The CVE description (from the NVD CVE) </li>
+            <li><code>cvss_base_score</code> - The CVSS base score component (from the NVD CVE)</li>
+            <li><code>cvss_impact_score</code> - The CVSS impact score component (only in CVSS v3) (from the NVD CVE)
+            </li>
+            <li><code>cvss_exploitability_score</code> - The CVSS exploitability score (only in CVSS v3) </li>
+            <li><code>cvss_severity</code> - The CVSS severity (LOW, MEDIUM, HIGH | LOW, MEDIUM, HIGH, CRITICAL) (from
+              the NVD CVE) </li>
+            <li><code>nvd_cwe_id</code> - The NVD-assigned CWE ID (from the NVD CVE) </li>
+            <li><code>cvss_vector</code> - The full CVSS vector (from the NVD CVE) </li>
+            <li><code>accessVector</code> - The stated access vector for the CVE (from the NVD CVE) </li>
+            <li><code>complexity</code> - The stated attack complexity, taken from the CVSS vector (from the NVD CVE)
+            </li>
+            <li><code>availabilityImpact</code> - The stated availability impact, taken from the CVSS vector (from the
+              NVD CVE) </li>
+            <li><code>integrityImpact</code> - The stated integrity impact, taken from the CVSS vector (from the NVD
+              CVE) </li>
+            <li><code>confidentialityImpact</code> - The stated confidentiality impact, taken from the CVSS vector (from
+              the NVD CVE) </li>
+            <li><code>allPriv</code> - CVSS v2 'All Privileges Required' (from the NVD CVE) </li>
+            <li><code>userPriv</code> - CVSS v2 'User Privileges Required' (from the NVD CVE) </li>
+            <li><code>otherPriv</code> - CVSS v2 'Other Privileges Required' (from the NVD CVE) </li>
+            <li><code>userInteractionRequired</code> - CVSS v3 'User Interaction Required' (from the NVD CVE) </li>
+            <li><code>privilegesRequired</code> - CVSS v3 'Privileges Required' (from the NVD CVE) </li>
+            <li><code>u_sys_created</code> - ICS Advisory creation date (from ICS Advisory) </li>
+            <li><code>u_sys_updated</code> - ICS Advisory update date (from ICS Advisory) </li>
+            <li><code>u_sfp_cluster</code> - SFP cluster the CWE belongs to</li>
+            <li><code>u_old_cat</code> - The old category (SFP Cluster Name) - this generated the TfL-style Map in our Paper </li>
+            <li><code>u_new_cat</code> - Our new detectable category the CVE belongs to </li>
+            <li><code>u_other_cat</code> - If <code>u_new_cat</code> is Other, we state what the 'Other' category should
+              be </li>
+            <li><code>u_product_type</code> - The type of product affected (Birmingham-contributed) - exists in
+              [extended_] tables </li>
+          </ul>
+        <li>icsa_statistics - table containing initial data imported<ul>
+            <li><code>icsa_id</code> - The ICS Advisory number (from ICS Advisory) </li>
+            <li><code>cwe_id</code> - The CWE number assigned to the vulnerability in the ICS Advisory </li>
+            <li><code>cve_id</code> - The stated CVE for the vulnerability </li>
+            <li><code>cvss_version</code> - The CVSS version (from the NVD CVE) - either 2 or 3 </li>
+            <li><code>cve_description</code> - The CVE description (from the NVD CVE) </li>
+            <li><code>cvss_base_score</code> - The CVSS base score component (from the NVD CVE)</li>
+            <li><code>cvss_impact_score</code> - The CVSS impact score component (only in CVSS v3) (from the NVD CVE)
+            </li>
+            <li><code>cvss_exploitability_score</code> - The CVSS exploitability score (only in CVSS v3) </li>
+            <li><code>cvss_severity</code> - The CVSS severity (LOW, MEDIUM, HIGH | LOW, MEDIUM, HIGH, CRITICAL) (from
+              the NVD CVE) </li>
+            <li><code>nvd_cwe_id</code> - The NVD-assigned CWE ID (from the NVD CVE) </li>
+            <li><code>cvss_vector</code> - The full CVSS vector (from the NVD CVE) </li>
+            <li><code>accessVector</code> - The stated access vector for the CVE (from the NVD CVE) </li>
+            <li><code>complexity</code> - The stated attack complexity, taken from the CVSS vector (from the NVD CVE)
+            </li>
+            <li><code>availabilityImpact</code> - The stated availability impact, taken from the CVSS vector (from the
+              NVD CVE) </li>
+            <li><code>integrityImpact</code> - The stated integrity impact, taken from the CVSS vector (from the NVD
+              CVE) </li>
+            <li><code>confidentialityImpact</code> - The stated confidentiality impact, taken from the CVSS vector (from
+              the NVD CVE) </li>
+            <li><code>allPriv</code> - CVSS v2 'All Privileges Required' (from the NVD CVE) </li>
+            <li><code>userPriv</code> - CVSS v2 'User Privileges Required' (from the NVD CVE) </li>
+            <li><code>otherPriv</code> - CVSS v2 'Other Privileges Required' (from the NVD CVE) </li>
+            <li><code>userInteractionRequired</code> - CVSS v3 'User Interaction Required' (from the NVD CVE) </li>
+            <li><code>privilegesRequired</code> - CVSS v3 'Privileges Required' (from the NVD CVE) </li>
+            <li><code>u_sys_created</code> - ICS Advisory creation date (from ICS Advisory) </li>
+            <li><code>u_sys_updated</code> - ICS Advisory update date (from ICS Advisory) </li>
+            <li><code>u_sfp_cluster</code> - SFP cluster the CWE belongs to</li>
           </ul>
         </li>
       </ul>
 
       <h3>Dataset Releases</h3>
-      <p>This Dataset is available as a set of SQL files for database servers and integration with other data analysis
-        tools and software.</p>
-      <h4>Full Dataset</h4>
-      <p class="lead">The full dataset of ICS Advisories and data through to March 2020.</p>
+      <p>This Dataset is available as a set of SQL, CSV and JSON files for database servers and integration with other data analysis tools and software.</p>
+      <h4>Base Tables</h4>
+      <p class="lead">These tables define common data that do not change (e.g. Vendors, CWEs and mappings). These are used as foreign keys for the original, validation and full datasets.</p>
       <table class="table table-striped">
-        <caption>Full Dataset Files</caption>
+        <caption>Base tables supporting the rest of the dataset</caption>
         <thead>
           <tr>
             <th class="col-9">Schema File</th>
@@ -137,10 +243,28 @@
         </thead>
         <tbody>
           <tr>
-            <th>cpsiot2020-cpe_listing</th>
-            <td><a href="#">SQL</a></td>
-            <td><a href="#">CSV</a></td>
-            <td><a href="#">JSON</a></td>
+            <th>esorics2020-icsa_vendors</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_vendors.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_vendors.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_vendors.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-icsa_cwe</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_cwe.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_cwe.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_cwe.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-cwe_groups</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_groups.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_groups.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_groups.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-cwe_group_member</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_group_member.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_group_member.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-cwe_group_member.json">JSON</a></td>
           </tr>
         </tbody>
       </table>
@@ -159,10 +283,28 @@
         </thead>
         <tbody>
           <tr>
-            <th>cpsiot2020-cpe_listing</th>
-            <td><a href="#">SQL</a></td>
-            <td><a href="#">CSV</a></td>
-            <td><a href="#">JSON</a></td>
+            <th>esorics2020-icsa_alert</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_alert.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_alert.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_alert.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-icsa_statistics</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-icsa_statistics_paper_dev</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics_paper_dev.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics_paper_dev.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-icsa_statistics_paper_dev.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-extended_icsa_statistics_paper_dev</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_icsa_statistics_paper_dev.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_icsa_statistics_paper_dev.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_icsa_statistics_paper_dev.json">JSON</a></td>
           </tr>
         </tbody>
       </table>
@@ -182,10 +324,62 @@
         </thead>
         <tbody>
           <tr>
-            <th>cpsiot2020-cpe_listing</th>
-            <td><a href="#">SQL</a></td>
-            <td><a href="#">CSV</a></td>
-            <td><a href="#">JSON</a></td>
+            <th>esorics2020-validation_icsa_vendors</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_vendors.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_vendors.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_vendors.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-validation_icsa_alert</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_alert.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_alert.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_alert.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-validation_icsa_statistics_paper_dev</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_statistics_paper_dev.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_statistics_paper_dev.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-validation_icsa_statistics_paper_dev.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-extended_validation_icsa_statistics_paper_dev</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_validation_icsa_statistics_paper_dev.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_validation_icsa_statistics_paper_dev.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-extended_validation_icsa_statistics_paper_dev.json">JSON</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Full Dataset</h4>
+      <p class="lead">The full dataset of ICS Advisories and data through to March 2020.</p>
+      <table class="table table-striped">
+        <caption>Full Dataset Files</caption>
+        <thead>
+          <tr>
+            <th class="col-9">Schema File</th>
+            <th class="col-1">SQL</th>
+            <th class="col-1">CSV</th>
+            <th class="col-1">JSON</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>esorics2020-merged_icsa_vendors</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-merged_icsa_alert</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.json">JSON</a></td>
+          </tr>
+          <tr>
+            <th>esorics2020-merged_icsa_statistics_paper_dev</th>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/esorics2020-dataset/blob/master/esorics2020-merged_icsa_vendors.json">JSON</a></td>
           </tr>
         </tbody>
       </table>
@@ -204,8 +398,11 @@
         Birmingham,<br />
         B15 2TT,<br />
         United Kingdom</span>
-        <span class="uob-address"><a href="https://www.birmingham.ac.uk/accessibility/index.aspx">Accessibility Statement</a> | <a href="https://www.birmingham.ac.uk/university/governance/publication-scheme/charitable.aspx">Charitable Information</a></span>
-      </div>
+      <span class="uob-address"><a href="https://www.birmingham.ac.uk/accessibility/index.aspx">Accessibility
+          Statement</a> | <a
+          href="https://www.birmingham.ac.uk/university/governance/publication-scheme/charitable.aspx">Charitable
+          Information</a></span>
+    </div>
   </footer>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

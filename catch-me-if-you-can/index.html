@@ -78,7 +78,7 @@
       </p>
       <div class="collapse" id="cite">
         <div class="card card-body">
-          <code>R.J. Thomas, J. Gardiner, T. Chothia, A. Rashid, M. Samanis and J. Perrett. (2020) <em>"Catch Me If You Can: An In-Depth Study of CVE Discovery Time and Inconsistencies for Managing Risks in Critical Infrastructure"</em> in: Proceedings of the ACM Workshop on Cyber-Physical Systems Security \& IOT Security and Privacy.</code>
+          <code>R.J. Thomas, J. Gardiner, T. Chothia, A. Rashid, M. Samanis and J. Perrett. (2020) <em>"Catch Me If You Can: An In-Depth Study of CVE Discovery Time and Inconsistencies for Managing Risks in Critical Infrastructure"</em> in: Proceedings of the ACM Workshop on Cyber-Physical Systems Security & IOT Security and Privacy.</code>
         </div>
       </div>
       <div class="collapse" id="bibtex">
@@ -96,7 +96,7 @@
       <h2>The Dataset</h2>
       <p class="lead">Everything you need to know about this Dataset.</p>
       <h3>Dataset Information:</h3>
-      <p>The 'Leaning from Vulnerabilities' Dataset was curated by scraping <a
+      <p>The 'Catch Me If You Can' Dataset was curated by scraping <a
           href="https://us-cert.cisa.gov/ics/advisories">CISA ICS-CERT Advisories</a>, the <a
           href="https://nvd.nist.gov/vuln/data-feeds">NIST NVD CVE feeds</a>, <a
           href="https://github.com/CVEProject/cvelist">MITRE CVE exports</a> and the <a
@@ -117,8 +117,8 @@
           <ul>
             <li><code>cve_id</code> - The CVE ID (extracted from ICS Advisory)</li>
             <li><code>cpe_vector</code> - The CPE vector of the affected device, software or operating system (Extracted from the NVD CVE)</li>
-            <li><code>vendor</code> - The stated vendor (extracted from the 'vendor' part of the CPE</li>
-            <li><code>cwe_id</code> - The CWE ID (from the ICS Advisory)</li>
+            <li><code>vendor</code> - The stated vendor (extracted from the 'vendor' part of the CPE)</li>
+            <li><code>cwe_id</code> - The CWE ID (from the ICS Advisory), used during analysis to identify whether certain classes of vulnerability influenced temporal aspects. A separate analysis of ICS vulnerabilities is in the <a href="/learning-from-vulnerabilities/">Learning from Vulnerabilities Paper</a>.</li>
             <li><code>icsa_id</code> - The ICS Advisory ID (from US-CERT)</li>
             <li><code>start_version</code> - The 'start' version of the vulnerability (from the NVD CVE)</li>
             <li><code>end_version</code> - The 'end' version of the vulnerability (from the NVD CVE)</li>
@@ -158,9 +158,9 @@
         <tbody>
           <tr>
             <th>cpsiot2020-cpe_listing</th>
-            <td><a href="#">SQL</a></td>
-            <td><a href="#">CSV</a></td>
-            <td><a href="#">JSON</a></td>
+            <td><a href="https://github.com/UoB-RITICS/cpsiotsec2020-dataset/blob/master/cpsiot2020-cpe_listing.sql">SQL</a></td>
+            <td><a href="https://github.com/UoB-RITICS/cpsiotsec2020-dataset/blob/master/cpsiot2020-cpe_listing.csv">CSV</a></td>
+            <td><a href="https://github.com/UoB-RITICS/cpsiotsec2020-dataset/blob/master/cpsiot2020-cpe_listing.json">JSON</a></td>
           </tr>
         </tbody>
       </table>
